@@ -6,3 +6,4 @@ pyserial
 requests
 mecode-viewer>=0.3.14
 mecademicpy>=2.3.0,<3.0.0
+
