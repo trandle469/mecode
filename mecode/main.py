@@ -6,6 +6,7 @@ import copy
 from collections import defaultdict
 import warnings
 import matplotlib.colors as mcolors
+import mecademicpy.robot as mdr
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
@@ -136,6 +137,8 @@ class G(object):
         self.layer_height = layer_height
         self.extrusion_width = extrusion_width
         self.extrusion_multiplier = extrusion_multiplier
+        self.robot=None
+
 
         self.history = [
             {
@@ -3689,3 +3692,29 @@ class G(object):
         if z is None:
             z = self.current_position["z"]
         self.print_time += np.linalg.norm([x, y, z]) / self.speed
+
+    """MECA500commands STARTS HERE"""
+
+    """ methods connect activate_robot, home_meca, and waithome are all required for first startup
+    in said  order"""
+    def connect(self,adress='192.168.0.100'):
+        robot=mdr.Robot()
+        robot.Connect(address=adress)
+
+    def activate_robot(self):
+        if self.robot:
+            self.robot.ActivateRobot()
+    def homemeca(self):
+        if self.robot:
+            self.robot.Home()
+
+    def waithome(self):
+        if self.robot:
+            self.robot.WaitHome()
+    def movejoints(self,j1,j2,j3,j4,j5,j6):
+        if self.robot:
+            self.robot.MoveJoints(j1,j2,j3,j4,j5,j6)
+
+    """Decativactvion  methods"""
+
+
