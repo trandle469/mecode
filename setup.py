@@ -13,10 +13,10 @@ def get_version():
 
 
 INFO = {
-    "name": "mecode",
+    "name": "mecodewithmeca",
     "version": get_version(),
     "description": "Simple GCode generator",
-    "author": "Rodrigo Telles",
+    "author": "Ty Randle",
     "author_email": "rtelles@g.harvard.edu",
 }
 
