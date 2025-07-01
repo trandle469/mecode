@@ -3698,8 +3698,8 @@ class G(object):
     """ methods connect activate_robot, home_meca, and waithome are all required for first startup
     in said  order"""
     def connect(self,adress='192.168.0.100'):
-        robot=mdr.Robot()
-        robot.Connect(address=adress)
+        self.robot=mdr.Robot()
+        self.robot.Connect(address=adress)
 
     def activate_robot(self):
         if self.robot:
