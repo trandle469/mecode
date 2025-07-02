@@ -3695,15 +3695,24 @@ class G(object):
 
     """MECA500commands STARTS HERE"""
 
+    def _log_robot_cmd(self,cmd: str):
+        if self.outfile:
+            self.outfile.write(f";MECA: {cmd}/n")
+
+
     """ methods connect activate_robot, home_meca, and waithome are all required for first startup
     in said  order"""
     def connect(self,adress='192.168.0.100'):
         self.robot=mdr.Robot()
         self.robot.Connect(address=adress)
+        #self._log_robot_cmd(f"mdr.Robot().Connect(address={adress}")
+
 
     def activaterobot(self):
-        if self.robot:
-            self.robot.ActivateRobot()
+        #if self.robot:
+            #self.robot.ActivateRobot()
+        self._log_robot_cmd("ActivateRobot()")
+
     def homerobot(self):
         if self.robot:
             self.robot.Home()
