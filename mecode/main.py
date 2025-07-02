@@ -3695,9 +3695,10 @@ class G(object):
 
     """MECA500commands STARTS HERE"""
 
-    def _log_robot_cmd(self,cmd: str):
-        if self.outfile:
-            self.outfile.write(f";MECA: {cmd}/n")
+    def _log_robot_cmd(self, cmd: str):
+        if self.out_fd:
+            self._write_out(cmd)
+
 
 
     """ methods connect activate_robot, home_meca, and waithome are all required for first startup
