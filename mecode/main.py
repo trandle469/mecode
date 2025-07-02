@@ -3701,20 +3701,47 @@ class G(object):
         self.robot=mdr.Robot()
         self.robot.Connect(address=adress)
 
-    def activate_robot(self):
+    def activaterobot(self):
         if self.robot:
             self.robot.ActivateRobot()
-    def homemeca(self):
+    def homerobot(self):
         if self.robot:
             self.robot.Home()
 
     def waithome(self):
         if self.robot:
-            self.robot.WaitHome()
+            self.robot.WaitHomed()
     def movejoints(self,j1,j2,j3,j4,j5,j6):
         if self.robot:
             self.robot.MoveJoints(j1,j2,j3,j4,j5,j6)
 
+
+
     """Decativactvion  methods"""
+    def waitidle(self):
+        if self.robot:
+            self.robot.Waitidle()
+    def decativaterobot(self):
+        if self.robot:
+            self.robot.DecativateRobot()
+    def disconnect(self):
+        if self.robot:
+            self.robot.Disconnect()
+
+    """ Synchronous and Asynchronous modes"""
+    """ In synchronous mode, each command you send must complete before 
+        the next command is accepted.The program waits (blocks) until the robot finishes the 
+        action and sends back a confirmation"""
+
+    def setcheckpoint(self,n):
+        if self.robot:
+            self.robot.SetCheckpoint(n)
+    def reseterror(self):
+        if self.robot:
+            self.robot.ResetError()
+
+            
+            
+
 
 
