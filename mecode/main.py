@@ -3702,52 +3702,98 @@ class G(object):
 
     """ methods connect activate_robot, home_meca, and waithome are all required for first startup
     in said  order"""
-    def connect(self,adress='192.168.0.100'):
-        self.robot=mdr.Robot()
-        self.robot.Connect(address=adress)
-        #self._log_robot_cmd(f"mdr.Robot().Connect(address={adress}")
+    def connect(self, address='192.168.0.100'):
+        self.robot = mdr.Robot()
+        self.robot.Connect(address=address)
 
-
+    # Powers on and enables the robot
     def activaterobot(self):
-        #if self.robot:
-            #self.robot.ActivateRobot()
-        self._log_robot_cmd("ActivateRobot()")
+        self._log_robot_cmd("ActivateRobot")
 
+    # Starts the homing sequence
     def homerobot(self):
-        if self.robot:
-            self.robot.Home()
+        self._log_robot_cmd("Home")
 
+    # Waits until homing is complete
     def waithome(self):
-        if self.robot:
-            self.robot.WaitHomed()
-    def movejoints(self,j1,j2,j3,j4,j5,j6):
-        if self.robot:
-            self.robot.MoveJoints(j1,j2,j3,j4,j5,j6)
+        self._log_robot_cmd("WaitHomed")
 
+    # Moves the robot to absolute joint positions
+    def movejoints(self, j1, j2, j3, j4, j5, j6):
+        self._log_robot_cmd(f"MoveJoints {j1} {j2} {j3} {j4} {j5} {j6}")
 
+    # Moves the robot to a Cartesian pose
+    def movelin(self, x, y, z, a, b, c):
+        self._log_robot_cmd(f"MoveLin {x} {y} {z} {a} {b} {c}")
 
-    """Decativactvion  methods"""
+    # Moves the robot to a Cartesian pose relative to its current pose
+    def movelinrel(self, x, y, z, a, b, c):
+        self._log_robot_cmd(f"MoveLinRel {x} {y} {z} {a} {b} {c}")
+
+    # Moves the robot to a joint position relative to its current joint values
+    def movejointsrel(self, j1, j2, j3, j4, j5, j6):
+        self._log_robot_cmd(f"MoveJointsRel {j1} {j2} {j3} {j4} {j5} {j6}")
+
+    # Waits until all robot motion has stopped
     def waitidle(self):
-        if self.robot:
-            self.robot.Waitidle()
+        self._log_robot_cmd("WaitIdle")
+
+    # Powers off the robot
     def decativaterobot(self):
-        if self.robot:
-            self.robot.DecativateRobot()
+        self._log_robot_cmd("DeactivateRobot")
+
+    # Disconnects from the robot (no ASCII command, internal Python logic)
     def disconnect(self):
         if self.robot:
             self.robot.Disconnect()
 
-    """ Synchronous and Asynchronous modes"""
-    """ In synchronous mode, each command you send must complete before 
-        the next command is accepted.The program waits (blocks) until the robot finishes the 
-        action and sends back a confirmation"""
+    # Sets a checkpoint number for synchronization
+    def setcheckpoint(self, n):
+        self._log_robot_cmd(f"SetCheckpoint {n}")
 
-    def setcheckpoint(self,n):
-        if self.robot:
-            self.robot.SetCheckpoint(n)
+    # Waits until the specified checkpoint is reached
+    def waitcheckpoint(self, n):
+        self._log_robot_cmd(f"WaitCheckpoint {n}")
+
+    # Pauses all current robot motion
+    def pausemotion(self):
+        self._log_robot_cmd("PauseMotion")
+
+    # Resumes motion after being paused
+    def resumemotion(self):
+        self._log_robot_cmd("ResumeMotion")
+
+    # Stops all robot motion immediately
+    def stopmotion(self):
+        self._log_robot_cmd("StopMotion")
+
+    # Clears any active error on the robot
     def reseterror(self):
-        if self.robot:
-            self.robot.ResetError()
+        self._log_robot_cmd("ResetError")
+
+    # Clears all current exceptions (only if raised)
+    def clearexceptions(self):
+        self._log_robot_cmd("ClearExceptions")
+
+    # Sets the linear velocity for Cartesian motion (in mm/s)
+    def setlinvel(self, speed):
+        self._log_robot_cmd(f"SetLinVel {speed}")
+
+    # Sets the linear acceleration for Cartesian motion (in mm/s^2)
+    def setlinacc(self, acc):
+        self._log_robot_cmd(f"SetLinAcc {acc}")
+
+    # Sets the joint velocity (in deg/s)
+    def setjointvel(self, speed):
+        self._log_robot_cmd(f"SetJointVel {speed}")
+
+    # Sets the joint acceleration (in deg/s^2)
+    def setjointacc(self, acc):
+        self._log_robot_cmd(f"SetJointAcc {acc}")
+
+    # Sets the motion blending percentage (0 = no blend, 100 = max blend)
+    def setblending(self, value):
+        self._log_robot_cmd(f"SetBlending {value}")
 
             
             
