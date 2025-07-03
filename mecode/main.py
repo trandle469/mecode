@@ -3696,10 +3696,9 @@ class G(object):
     """MECA500commands STARTS HERE"""
 
     def _log_robot_cmd(self, cmd: str):
+        """Writes raw ASCII robot commands to the output file."""
         if self.out_fd:
-            self._write_out(cmd)
-
-
+            self._write_out(f"{cmd}")
 
     """ methods connect activate_robot, home_meca, and waithome are all required for first startup
     in said  order"""
